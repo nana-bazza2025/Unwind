@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unwind - Find Your Balance</title>
+    <meta name="description"
+        content="Your personal space for mood monitoring, stress reduction, and emotional wellness.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="weather-fullscreen-container" class="weather-fullscreen-container"></div>
+    <div class="app-container">
+        <header>
+            <div class="header-left">
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <i class="fa-solid fa-cloud"></i> Unwind
+                </div>
+            </div>
+            <nav id="nav-menu">
+                <button class="nav-btn active" data-target="dashboard"><i class="fa-solid fa-house"></i>
+                    Dashboard</button>
+                <button class="nav-btn" data-target="mood"><i class="fa-solid fa-face-smile"></i> Mood</button>
+                <button class="nav-btn" data-target="breathe"><i class="fa-solid fa-wind"></i> Breathe</button>
+                <button class="nav-btn" data-target="grow"><i class="fa-solid fa-seedling"></i> Grow</button>
+                <button class="nav-btn" data-target="games"><i class="fa-solid fa-gamepad"></i> Games</button>
+                <button class="nav-btn" data-target="sounds"><i class="fa-solid fa-music"></i> Relax</button>
+                <button class="nav-btn" data-target="chat"><i class="fa-solid fa-robot"></i> Aura</button>
+            </nav>
+            <button class="account-btn" id="account-toggle-btn" aria-label="Toggle Account Settings">
+                <i class="fa-solid fa-user"></i>
+            </button>
+        </header>
+
+        <main id="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="hero" style="margin-bottom: 0.5rem;">
+                    <h1>Welcome to Unwind</h1>
+                    <p id="hero-quote-funny" class="quote-funny" style="margin-bottom: 0;">"Loading laughs..." 🥑</p>
+                    <div id="religious-verse-container" class="religious-verse-container hidden">
+                        <p id="religious-verse-text" class="verse-text"></p>
+                        <span id="religious-verse-source" class="verse-source"></span>
+                    </div>
+                </div>
+
+
+                <!-- Mood Monster on Dashboard -->
+                <div class="monster-section" style="margin-bottom: 2rem;">
+                    <h3>Your Mood Monster</h3>
+                    <div class="monster neutral">
+                        <div class="stars-container">
+                            <i class="fa-solid fa-star star-1"></i>
+                            <i class="fa-solid fa-star star-2"></i>
+                            <i class="fa-solid fa-star star-3"></i>
+                        </div>
+                        <div class="monster-body">
+                            <div class="monster-hair"></div>
+                            <div class="monster-accessories"></div>
+                            <div class="monster-face">
+                                <div class="monster-eyebrows">
+                                    <div class="eyebrow left"></div>
+                                    <div class="eyebrow right"></div>
+                                </div>
+                                <div class="monster-eyes">
+                                    <div class="eye left">
+                                        <div class="eye-patch"></div>
+                                        <div class="eyelashes"></div>
+                                        <div class="eye-sparkle"></div>
+                                    </div>
+                                    <div class="eye right">
+                                        <div class="eye-patch"></div>
+                                        <div class="eyelashes"></div>
+                                        <div class="eye-sparkle"></div>
+                                    </div>
+                                    <div class="tear tear-1"></div>
+                                    <div class="tear tear-2"></div>
+                                </div>
+                                <div class="monster-mouth">
+                                </div>
+                                <div class="rosy-cheeks"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="monster-name-display"></div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card" onclick="navigateTo('mood')">
+                        <div class="icon-wrapper">
+                            <i class="fa-regular fa-face-smile"></i>
+                        </div>
+                        <h3>Mood Monitor</h3>
+                        <p>Track your emotional journey.</p>
+                    </div>
+                    <div class="feature-card" onclick="navigateTo('breathe')">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <h3>Reduce Stress</h3>
+                        <p>Guided breathing exercises.</p>
+                    </div>
+                    <div class="feature-card" onclick="navigateTo('grow')">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3>Emotional Growth</h3>
+                        <p>Build healthy coping habits.</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-footer">
+                    <p id="dashboard-footer-quote" class="footer-quote">"Your potential is endless. Go do what you were
+                        created to do." ✨</p>
+                </div>
+            </section>
+
+            <!-- Mood Tracker View -->
+            <section id="mood" class="view">
+                <div class="section-header">
+                    <h2>Mood Monitor</h2>
+                    <p>Select how you feel right now.</p>
+                </div>
+                <div class="mood-selector">
+                    <button class="mood-btn" data-mood="happy" style="--mood-color: #10b981">
+                        <i class="fa-solid fa-face-smile-beam"></i>
+                        <span>Happy</span>
+                    </button>
+                    <button class="mood-btn" data-mood="meh" style="--mood-color: #34d399">
+                        <i class="fa-solid fa-face-meh"></i>
+                        <span>Meh</span>
+                    </button>
+                    <button class="mood-btn" data-mood="sad" style="--mood-color: #60a5fa">
+                        <i class="fa-solid fa-face-sad-tear"></i>
+                        <span>Sad</span>
+                    </button>
+                    <button class="mood-btn" data-mood="scared" style="--mood-color: #a78bfa">
+                        <i class="fa-solid fa-face-grimace"></i>
+                        <span>Scared</span>
+                    </button>
+                    <button class="mood-btn" data-mood="angry" style="--mood-color: #f87171">
+                        <i class="fa-solid fa-face-angry"></i>
+                        <span>Angry</span>
+                    </button>
+                    <button class="mood-btn" data-mood="misunderstood" style="--mood-color: #fb923c">
+                        <i class="fa-solid fa-face-confused"></i>
+                        <span>Misunderstood</span>
+                    </button>
+                    <button class="mood-btn" data-mood="suicidal" style="--mood-color: #ef4444">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Crisis</span>
+                    </button>
+                </div>
+
+    </div>
+
+    <!-- Mood Monster Avatar -->
+    <div class="monster-section">
+        <h3>Your Mood Monster</h3>
+        <div class="monster neutral">
+
+            <!-- Stars for Good Mood -->
+            <div class="stars-container">
+                <i class="fa-solid fa-star star-1"></i>
+                <i class="fa-solid fa-star star-2"></i>
+                <i class="fa-solid fa-star star-3"></i>
+            </div>
+
+            <div class="monster-body">
+                <!-- Hair Container -->
+                <div class="monster-hair"></div>
+                <!-- Accessories Container -->
+                <div class="monster-accessories"></div>
+
+                <div class="monster-face">
+                    <div class="monster-eyebrows">
+                        <div class="eyebrow left"></div>
+                        <div class="eyebrow right"></div>
+                    </div>
+                    <div class="monster-eyes">
+                        <div class="eye left">
+                            <div class="eye-patch"></div>
+                            <div class="eyelashes"></div>
+                        </div>
+                        <div class="eye right">
+                            <div class="eye-patch"></div>
+                            <div class="eyelashes"></div>
+                        </div>
+                        <!-- Tears for Bad Mood -->
+                        <div class="tear tear-1"></div>
+                        <div class="tear tear-2"></div>
+                    </div>
+                    <div class="monster-mouth">
+                        <div class="tooth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="monster-name-display" id="dashboard-monster-name"></div>
+    </div>
+
+    <!-- Dynamic Mood Quote Section -->
+    <div id="mood-insight-card" class="quote-card" style="display: none; margin-bottom: 2rem;">
+        <i class="fa-solid fa-lightbulb"></i>
+        <p id="mood-based-quote" class="cursive-text"></p>
+    </div>
+
+    <div id="mood-history">
+        <h3>Recent History</h3>
+        <ul id="mood-list">
+            <!-- Populated by JS -->
+            <li class="empty-state">No moods recorded yet today.</li>
+        </ul>
+    </div>
+    </section>
+
+    <!-- Breathe View -->
+    <section id="breathe" class="view">
+        <div class="section-header">
+            <h2>Reduce Stress</h2>
+            <p>Follow the circle. Breathe in... Breathe out...</p>
+        </div>
+        <div class="breathing-container">
+            <div class="breath-selector">
+                <button class="secondary-btn active" data-style="relax">Relax (4-7-8)</button>
+                <button class="secondary-btn" data-style="box">Box (4-4-4-4)</button>
+            </div>
+            <div class="circle-container">
+                <div class="circle"></div>
+                <div class="instruction" id="breath-text">Breathe In</div>
+            </div>
+            <button id="toggle-breath-btn" class="primary-btn">Start Exercise</button>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Emergency Meditation -->
+        <div class="emergency-meditation-card">
+            <div class="emergency-header">
+                <h3><i class="fa-solid fa-kit-medical"></i> Emergency Meditation</h3>
+                <p>For when you need immediate calm. 60-second panic relief.</p>
+            </div>
+
+            <div id="emergency-timer-display" class="emergency-timer hidden">01:00</div>
+            <p id="emergency-instruction" class="emergency-instruction">Press start to begin immediate grounding.</p>
+
+            <div class="emergency-controls">
+                <button id="start-emergency-btn" class="emergency-btn">
+                    <i class="fa-solid fa-play"></i> Start Emergency Help
+                </button>
+                <button id="stop-emergency-btn" class="secondary-btn hidden">Stop</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grow/Coping View -->
+    <section id="grow" class="view">
+        <div class="section-header">
+            <h2>Emotional Awareness</h2>
+            <p>Build healthy habits and reflect.</p>
+        </div>
+        <div class="quote-card">
+            <i class="fa-solid fa-quote-left"></i>
+            <p id="daily-quote" class="cursive-text">"Your Feelings are signals, not Weaknesses. Listen to them
+                and grow."</p>
+        </div>
+
+        <div class="coping-tools">
+            <div class="tool-card">
+                <h3><i class="fa-solid fa-pen-fancy"></i> Quick Journal</h3>
+                <textarea id="journal-entry" placeholder="What's on your mind?"></textarea>
+                <button id="save-journal" class="secondary-btn">Save Entry</button>
+            </div>
+
+            <div class="tool-card">
+                <h3><i class="fa-solid fa-lightbulb"></i> Personal Affirmations</h3>
+                <div class="quote-maker">
+                    <input type="text" id="personal-quote-input" placeholder="Write a quote for yourself...">
+                    <button id="save-personal-quote-btn" class="secondary-btn small-btn">Add</button>
+                </div>
+                <ul id="personal-quotes-list" class="mini-list">
+                    <!-- Added quotes go here -->
+                </ul>
+            </div>
+
+            <div class="tool-card full-width">
+                <h3><i class="fa-solid fa-shield-heart"></i> Coping Strategies</h3>
+                <div class="strategy-selector">
+                    <label>I am feeling:</label>
+                    <div class="chip-group">
+                        <button class="chip-btn active" data-emotion="anxiety">Anxious</button>
+                        <button class="chip-btn" data-emotion="anger">Angry</button>
+                        <button class="chip-btn" data-emotion="sadness">Sad</button>
+                        <button class="chip-btn" data-emotion="stress">Stressed</button>
+                        <button class="chip-btn" data-emotion="panic">Panic</button>
+                    </div>
+                </div>
+                <div id="strategy-display" class="strategy-content fade-in">
+                    <!-- Dynamic Content -->
+                    <h4>The 5-4-3-2-1 Technique</h4>
+                    <p>Acknowledge 5 things you see, 4 things you can touch, 3 things you hear, 2 things you can smell,
+                        and 1 thing you can taste.</p>
+                </div>
+            </div>
+            <!-- Gratefulness Board -->
+            <div class="tool-card full-width"
+                style="background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <h3><i class="fa-solid fa-heart"></i> Gratefulness Board</h3>
+                    <button id="add-grateful-btn" class="secondary-btn small-btn"><i class="fa-solid fa-plus"></i> Add
+                        Note</button>
+                </div>
+                <div id="grateful-grid" class="grateful-grid">
+                    <!-- Sticky Notes JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="journal-history-section">
+            <h3 class="history-title"><i class="fa-solid fa-clock-rotate-left"></i> Your Details</h3>
+            <div id="journal-list" class="journal-list">
+                <!-- Entries will appear here -->
+                <p class="empty-state">No journal entries saved yet.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Daily Goals -->
+        <div class="dashboard-widget grow-goals" style="margin-top: 2rem;">
+            <div class="widget-header">
+                <h3><i class="fa-solid fa-list-check"></i> Daily Goals</h3>
+                <span id="daily-checkin-status" class="status-badge pending">Check-in Pending</span>
+            </div>
+            <div class="goals-list" id="daily-goals-list">
+                <!-- JS populated -->
+            </div>
+            <div class="add-goal-row">
+                <input type="text" id="new-goal-input" placeholder="Add a goal for today...">
+                <button id="add-goal-btn"><i class="fa-solid fa-plus"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stress Games View -->
+    <section id="games" class="view">
+        <div class="section-header">
+            <h2>Stress Relief Games</h2>
+            <p>Pop away your stress!</p>
+        </div>
+
+        <div class="games-grid">
+            <!-- Weather Moods -->
+            <div class="game-container" id="weather-game">
+                <div class="game-header">
+                    <h3><i class="fa-solid fa-cloud-sun"></i> Weather Moods</h3>
+                </div>
+                <div id="weather-mood-content" class="weather-mood-content">
+                    <p class="game-hint">How are you feeling today?</p>
+                    <div class="weather-options">
+                        <button class="weather-btn" data-weather="sunny"><i class="fa-solid fa-sun"></i> Sunny</button>
+                        <button class="weather-btn" data-weather="rainy"><i class="fa-solid fa-cloud-showers-heavy"></i>
+                            Rainy</button>
+                        <button class="weather-btn" data-weather="cloudy"><i class="fa-solid fa-cloud"></i>
+                            Cloudy</button>
+                        <button class="weather-btn" data-weather="stormy"><i class="fa-solid fa-bolt"></i>
+                            Stormy</button>
+                    </div>
+                    <div id="weather-display" class="weather-display">
+                        <div id="weather-icon-container" class="weather-icon-container hidden">
+                            <i id="weather-interactive-icon" class="fa-solid"></i>
+                            <p class="tap-hint">Tap to grow!</p>
+                        </div>
+                        <div id="weather-visual" class="weather-visual"></div>
+                        <p id="weather-message" class="weather-message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shape Pop -->
+            <div class="game-container">
+                <div class="game-header">
+                    <h3><i class="fa-solid fa-shapes"></i> Shape Pop</h3>
+                    <button id="start-shape-pop" class="secondary-btn small-btn">Start</button>
+                </div>
+                <div id="shape-pop-area" class="shape-pop-area">
+                    <p class="game-hint">Pop shapes to relax!</p>
+                </div>
+            </div>
+
+            <!-- Zen Drawing Pad -->
+            <div class="game-container full-width">
+                <div class="game-header">
+                    <h3><i class="fa-solid fa-palette"></i> Zen Drawing Pad</h3>
+                    <div class="canvas-controls">
+                        <input type="color" id="draw-color" value="#10b981">
+                        <button id="clear-canvas" class="secondary-btn small-btn">Clear</button>
+                        <button id="save-canvas" class="secondary-btn small-btn">Save</button>
+                    </div>
+                </div>
+                <canvas id="zen-canvas" class="zen-canvas"></canvas>
+            </div>
+
+            <!-- Focus Dots -->
+            <div class="game-container full-width">
+                <div class="game-header">
+                    <h3><i class="fa-solid fa-ellipsis"></i> Focus Dots</h3>
+                    <button id="start-focus-dots" class="secondary-btn small-btn">Start Game</button>
+                </div>
+                <div id="focus-dots-area" class="focus-dots-area">
+                    <div id="focus-status" class="focus-status">Ready to test your focus?</div>
+                    <div id="dots-container" class="dots-container"></div>
+                </div>
+            </div>
+
+            <!-- Light Tracing Game -->
+            <div class="game-container full-width">
+                <div class="game-header">
+                    <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Calm Light Trace</h3>
+                    <button id="toggle-light-trace" class="secondary-btn small-btn">Start Tracing</button>
+                </div>
+                <div id="light-trace-area" class="light-trace-area">
+                    <div id="moving-light" class="moving-light"></div>
+                    <div id="trace-instruction" class="game-hint">Follow the light to find your calm.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zen Art Gallery -->
+        <div class="section-divider"></div>
+        <div class="section-header" style="margin-top: 2rem;">
+            <h2>Zen Masterpieces</h2>
+            <p>Your saved expressions of calm.</p>
+        </div>
+        <div id="zen-gallery" class="zen-gallery">
+            <!-- Saved drawings will appear here -->
+            <p class="empty-state">No masterpieces saved yet. Start drawing to see them here!</p>
+        </div>
+    </section>
+
+    <!-- Sounds View -->
+    <section id="sounds" class="view">
+        <div class="section-header">
+            <h2>Relaxing Sounds</h2>
+            <p>Find peace through beautiful recitations and melodies.</p>
+        </div>
+
+        <div class="sounds-container">
+            <!-- Mood Based Recommendation -->
+            <div id="mood-surah-section" class="sound-category hidden">
+                <h3><i class="fa-solid fa-star"></i> Recommended for your Mood</h3>
+                <div id="mood-surah-card-container">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="section-divider" style="margin: 1.5rem 0;"></div>
+            </div>
+
+            <!-- Quran Section -->
+            <div class="sound-category">
+                <h3><i class="fa-solid fa-kaaba"></i> Quran Recitations</h3>
+                <div class="sound-grid">
+                    <div class="sound-card"
+                        data-src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudays/055.mp3"
+                        data-title="Surah Ar-Rahman">
+                        <div class="sound-info">
+                            <span class="sound-title">Surah Ar-Rahman</span>
+                            <span class="sound-artist">Abdurrahman As-Sudais</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <div class="sound-card"
+                        data-src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudays/067.mp3"
+                        data-title="Surah Al-Mulk">
+                        <div class="sound-info">
+                            <span class="sound-title">Surah Al-Mulk</span>
+                            <span class="sound-artist">Abdurrahman As-Sudais</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <div class="sound-card"
+                        data-src="https://download.quranicaudio.com/quran/abdurrahmaan_as-sudays/036.mp3"
+                        data-title="Surah Ya-Sin">
+                        <div class="sound-info">
+                            <span class="sound-title">Surah Ya-Sin</span>
+                            <span class="sound-artist">Abdurrahman As-Sudais</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Music Section -->
+            <div class="sound-category">
+                <h3><i class="fa-solid fa-music"></i> Calming Music</h3>
+                <div class="sound-grid">
+                    <div class="sound-card"
+                        data-src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
+                        data-title="Meditation">
+                        <div class="sound-info">
+                            <span class="sound-title">Meditation</span>
+                            <span class="sound-artist">Ambient Relaxation</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <div class="sound-card"
+                        data-src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3"
+                        data-title="Relaxing Piano">
+                        <div class="sound-info">
+                            <span class="sound-title">Relaxing Piano</span>
+                            <span class="sound-artist">Soft Melodies</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <div class="sound-card"
+                        data-src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_bb809c9e94.mp3"
+                        data-title="Nature Sounds">
+                        <div class="sound-info">
+                            <span class="sound-title">Nature Sounds</span>
+                            <span class="sound-artist">Forest Ambience</span>
+                        </div>
+                        <button class="play-btn-circle"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Player Bar -->
+        <div id="sound-player-bar" class="sound-player-bar hidden">
+            <!-- Progress Bar -->
+            <div class="player-progress-container" id="player-progress-container">
+                <div class="player-progress-bar" id="player-progress-bar"></div>
+            </div>
+            <div class="player-content">
+                <div class="player-left">
+                    <div class="player-pulse"></div>
+                    <div class="player-text">
+                        <span id="p-title">Surah Ar-Rahman</span>
+                        <span id="p-status">Now Playing...</span>
+                    </div>
+                </div>
+                <div class="player-controls">
+                    <button id="p-play-pause"><i class="fa-solid fa-pause"></i></button>
+                    <button id="p-stop"><i class="fa-solid fa-stop"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat AI View -->
+    <section id="chat" class="view">
+        <div class="section-header">
+            <h2>Mental Health Counselor</h2>
+            <p>A safe space to share your thoughts and feelings.</p>
+        </div>
+        <div class="chat-container">
+            <div class="chat-history" id="chat-history">
+                <div class="message ai-message">
+                    <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="bubble">Hi there! I'm Aura. How are you feeling right now? You can tell me
+                        anything.</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type your feelings here...">
+                <button id="send-chat-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Account Drawer (Right Side) -->
+    <div id="account-drawer" class="account-drawer">
+        <div class="drawer-header">
+            <h3>Your Profile</h3>
+            <button id="close-account-btn" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-content">
+            <div class="account-container">
+                <!-- Profile Card -->
+                <div class="profile-card">
+                    <div class="account-avatar">
+                        <div class="monster neutral">
+                            <div class="stars-container">
+                                <i class="fa-solid fa-star star-1"></i>
+                                <i class="fa-solid fa-star star-2"></i>
+                                <i class="fa-solid fa-star star-3"></i>
+                            </div>
+                            <div class="monster-body">
+                                <div class="monster-hair"></div>
+                                <div class="monster-accessories"></div>
+                                <div class="monster-face">
+                                    <div class="monster-eyebrows">
+                                        <div class="eyebrow left"></div>
+                                        <div class="eyebrow right"></div>
+                                    </div>
+                                    <div class="monster-eyes">
+                                        <div class="eye left">
+                                            <div class="eyelashes"></div>
+                                            <div class="eye-sparkle"></div>
+                                        </div>
+                                        <div class="eye right">
+                                            <div class="eyelashes"></div>
+                                            <div class="eye-sparkle"></div>
+                                        </div>
+                                        <div class="tear tear-1"></div>
+                                        <div class="tear tear-2"></div>
+                                    </div>
+                                    <div class="monster-mouth">
+                                    </div>
+                                    <div class="rosy-cheeks"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="monster-name-display" id="account-monster-name"></div>
+                    <button id="save-account-btn" class="primary-btn" style="width: 100%; margin-top: 1.5rem;">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                    </button>
+                </div>
+
+                <!-- Settings Sections -->
+                <div class="account-settings">
+                    <!-- Monster Customization -->
+                    <div class="settings-card">
+                        <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Customize Monster</h3>
+                        <div class="form-group">
+                            <label>Monster Name</label>
+                            <input type="text" id="monster-name-input" placeholder="e.g. Tipsy">
+                        </div>
+
+                        <span class="option-label">Base Color</span>
+                        <div class="option-grid" id="color-options">
+                            <div class="color-btn" style="background:#e2e8f0" data-color="#e2e8f0"></div>
+                            <div class="color-btn" style="background:#fca5a5" data-color="#fca5a5"></div>
+                            <div class="color-btn" style="background:#86efac" data-color="#86efac"></div>
+                            <div class="color-btn active" style="background:#10b981" data-color="#10b981"></div>
+                            <div class="color-btn" style="background:#c4b5fd" data-color="#c4b5fd"></div>
+                            <div class="color-btn" style="background:#fbbf24" data-color="#fbbf24"></div>
+                        </div>
+
+                        <span class="option-label">Hairstyle</span>
+                        <div class="option-grid" id="hair-options">
+                            <button class="option-btn active" data-hair="none">Bald</button>
+                            <button class="option-btn" data-hair="hair-spiky">Spiky</button>
+                            <button class="option-btn" data-hair="hair-long">Long</button>
+                            <button class="option-btn" data-hair="hair-buns">Buns</button>
+                            <button class="option-btn" data-hair="hair-curly">Curly</button>
+                            <button class="option-btn" data-hair="hair-mohawk">Mohawk</button>
+                            <button class="option-btn" data-hair="hair-braids">Braids</button>
+                            <button class="option-btn" data-hair="hair-afro">Afro</button>
+                            <button class="option-btn" data-hair="hair-ponytail">Ponytail</button>
+                        </div>
+
+                        <span class="option-label">Teeth Style</span>
+                        <div class="option-grid" id="teeth-options">
+                            <button class="option-btn" data-teeth="none">None</button>
+                            <button class="option-btn active" data-teeth="tooth-snaggle">Snaggle</button>
+                            <button class="option-btn" data-teeth="tooth-fangs">Fangs</button>
+                            <button class="option-btn" data-teeth="tooth-buck">Buck</button>
+                            <button class="option-btn" data-teeth="tooth-grin">Grin</button>
+                        </div>
+
+                        <span class="option-label">Accessories</span>
+                        <div class="option-grid" id="acc-options">
+                            <button class="option-btn active" data-acc="none">None</button>
+                            <button class="option-btn" data-acc="acc-glasses">Glasses</button>
+                            <button class="option-btn" data-acc="acc-bow">Bow Tie</button>
+                            <button class="option-btn" data-acc="acc-hat">Hat</button>
+                            <button class="option-btn" data-acc="acc-headphones">Headphones</button>
+                            <button class="option-btn" data-acc="acc-crown">Crown</button>
+                            <button class="option-btn" data-acc="acc-mustache">Mustache</button>
+                            <button class="option-btn" data-acc="acc-eyepatch">Eye Patch</button>
+                            <button class="option-btn" data-acc="acc-halo">Halo</button>
+                        </div>
+                    </div>
+
+                    <!-- Personal Info -->
+                    <div class="settings-card">
+                        <h3><i class="fa-solid fa-user-gear"></i> Personal Information</h3>
+                        <div class="form-group">
+                            <label>Preferred Name</label>
+                            <input type="text" id="account-name" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Religion</label>
+                            <select id="user-religion">
+                                <option value="none">Prefer not to say</option>
+                                <option value="christianity">Christianity (The Bible)</option>
+                                <option value="islam">Islam (The Quran)</option>
+                                <option value="judaism">Judaism (The Torah)</option>
+                                <option value="buddhism">Buddhism (Dhammapada)</option>
+                                <option value="hinduism">Hinduism (Bhagavad Gita)</option>
+                                <option value="sikhism">Sikhism (Guru Granth Sahib)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Team -->
+                    <div class="settings-card">
+                        <h3><i class="fa-solid fa-life-ring"></i> Emergency Team</h3>
+                        <div class="form-group" style="display: flex; gap: 0.5rem; flex-direction: column;">
+                            <input type="text" id="contact-name" placeholder="Contact Name">
+                            <input type="tel" id="contact-phone" placeholder="Phone Number">
+                            <button id="add-contact-btn" class="secondary-btn" style="width: 100%;">
+                                <i class="fa-solid fa-plus"></i> Add
+                            </button>
+                        </div>
+                        <ul id="contacts-list" class="mini-list" style="margin-top: 1rem;">
+                            <!-- Contacts JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>"You are doing great. One breath at a time." 🌿</p>
+    </footer>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
