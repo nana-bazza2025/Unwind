@@ -3,13 +3,13 @@
     --bg-dark: #030806;
     /* Deep forest forest */
     --bg-card: #061410;
-    --primary: #10b981;
-    /* Atmospheric Emerald */
-    --primary-hover: #059669;
-    --secondary: #064e3b;
-    --accent: #6ee7b7;
+    --primary: #34d399;
+    /* Lighter Atmospheric Emerald */
+    --primary-hover: #10b981;
+    --secondary: #065f46;
+    --accent: #a7f3d0;
     --text-main: #f1f5f9;
-    --text-muted: #a7f3d0;
+    --text-muted: #d1fae5;
     --glass-bg: rgba(6, 20, 16, 0.8);
     --glass-border: rgba(167, 243, 208, 0.1);
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
@@ -47,8 +47,8 @@ body::before {
     height: 100%;
     z-index: 0;
     background-image:
-        radial-gradient(circle at 15% 40%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(110, 231, 183, 0.08) 0%, transparent 35%);
+        radial-gradient(circle at 15% 40%, rgba(52, 211, 153, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(167, 243, 208, 0.08) 0%, transparent 35%);
     filter: blur(50px);
     animation: driftClouds 60s infinite alternate;
     pointer-events: none;
@@ -64,8 +64,8 @@ body::after {
     height: 100%;
     z-index: 0;
     background-image:
-        radial-gradient(circle at 50% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 70% 60%, rgba(110, 231, 183, 0.06) 0%, transparent 30%);
+        radial-gradient(circle at 50% 70%, rgba(52, 211, 153, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(167, 243, 208, 0.06) 0%, transparent 30%);
     filter: blur(60px);
     animation: driftCloudsReverse 80s infinite alternate;
     pointer-events: none;
@@ -261,7 +261,7 @@ nav.show {
 
 .nav-btn.active {
     color: var(--primary);
-    background: rgba(16, 185, 129, 0.1);
+    background: rgba(52, 211, 153, 0.1);
     font-weight: 600;
 }
 
@@ -389,7 +389,7 @@ main {
 .icon-wrapper {
     width: 60px;
     height: 60px;
-    background: rgba(16, 185, 129, 0.1);
+    background: rgba(52, 211, 153, 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -401,8 +401,8 @@ main {
 
 /* Feature Section Header Hiding */
 section:not(#dashboard) .section-header {
-    margin-bottom: 1rem;
-    padding-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding-top: 0;
 }
 
 /* Ensure the element AFTER any hidden header has zero top margin in compact views */
@@ -411,13 +411,13 @@ section:not(#dashboard) .section-header+* {
 }
 
 .section-header h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
     text-align: center;
 }
 
 .section-header p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     text-align: center;
 }
@@ -452,26 +452,26 @@ section:not(#dashboard) .monster-section {
 
 section:not(#dashboard) .mood-selector {
     gap: 0.5rem !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
 }
 
 section:not(#dashboard) .breathing-container {
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
 }
 
 section:not(#dashboard) .coping-tools,
 section:not(#dashboard) .games-grid {
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
 }
 
 section:not(#dashboard) .tool-card,
 section:not(#dashboard) .game-container,
 section:not(#dashboard) .account-card {
-    padding: 0.75rem !important;
+    padding: 0.5rem !important;
 }
 
 section:not(#dashboard) .sounds-container {
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
 }
 
 section:not(#dashboard) .chat-container {
@@ -525,7 +525,7 @@ section:not(#dashboard) .chat-container {
     max-width: 600px;
     margin: 0 auto;
     background: var(--glass-bg);
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 12px;
 }
 
@@ -1419,7 +1419,7 @@ section:not(#dashboard) .monster-section h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
 }
 
 .account-avatar .monster {
@@ -2135,7 +2135,7 @@ section:not(#dashboard) .monster-section h3 {
 /* Grow View */
 .quote-card {
     text-align: center;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(5, 150, 105, 0.2));
     padding: 1rem;
     /* Dramatically reduced from 3rem */
     border-radius: 12px;
@@ -2436,7 +2436,7 @@ button {
 
 .chat-chip-btn {
     background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    border: 1px solid rgba(52, 211, 153, 0.3);
     color: var(--primary);
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -2450,16 +2450,16 @@ button {
     background: var(--primary);
     color: #0f172a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 4px 10px rgba(52, 211, 153, 0.2);
 }
 
 /* Journal History */
 .journal-history-section {
-    margin-top: 2rem;
+    margin-top: 1rem;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .history-title {
@@ -3647,6 +3647,10 @@ button {
     text-align: center;
     opacity: 0.7;
     font-size: 0.9rem;
+}
+
+body.feature-active .app-footer {
+    padding: 0.5rem;
 }
 
 /* Religious Verse Styles */

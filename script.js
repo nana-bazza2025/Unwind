@@ -1605,13 +1605,16 @@ const chatInput = document.getElementById('chat-input');
 const sendChatBtn = document.getElementById('send-chat-btn');
 const chatHistory = document.getElementById('chat-history');
 
-// On load, update the initial message in HTML to have suggested chips if needed, 
-// or just append them now.
-// Let's replace the content of the chat history with a fresh start that includes options.
+// On load, update the initial message in HTML to have// Let's replace the content of the chat history with a fresh start that includes options.
 setTimeout(() => {
     chatHistory.innerHTML = ''; // Clear hardcoded HTML
     const userName = localStorage.getItem('profileName') || 'friend';
-    addMessage(`Hey ${userName}! I'm Aura, your AI companion. I'm here to listen, support, and help you find your calm. How are you feeling in this moment?`, 'ai', ["I'm feeling stressed", "Just want to talk", "Need some advice", "I had a great day!"]);
+    const initialGreetings = [
+        `Hey ${userName}! 💙 I've been waiting for you. How are you holding up today? I'm here to listen to anything you need to get off your chest.`,
+        `Hi ${userName}, it's so good to see you again. I'm Aura, and I'm here to be your safe space today. How is your heart feeling in this moment?`,
+        `Hello ${userName}! 🌿 I was just thinking about our last chat. How have things been for you since then?`
+    ];
+    addMessage(initialGreetings[Math.floor(Math.random() * initialGreetings.length)], 'ai', ["I'm feeling stressed", "Just want to talk", "Need some advice", "I had a great day!"]);
 }, 100);
 
 sendChatBtn.addEventListener('click', handleChatSubmit);
@@ -1745,7 +1748,15 @@ function generateAIResponse(input) {
     };
 
     // Therapeutic validation phrases
-    const validate = () => `I hear you ${userName}, and what you're feeling is completely valid. Your emotions are not weaknesses—they're signals that something needs your attention.`;
+    const validate = () => {
+        const phrases = [
+            `I hear you ${userName}, and I want you to know that what you're feeling is completely human and valid.`,
+            `Thank you for sharing that with me, ${userName}. It takes strength to be this open about your feelings.`,
+            `I'm listening, ${userName}. It sounds like you're carrying a lot right now, and it's okay to not be okay.`,
+            `I'm here with you, ${userName}. Your emotions are important signals, and we can look at them together.`
+        ];
+        return phrases[Math.floor(Math.random() * phrases.length)];
+    };
 
     // 1. STATE-BASED RESPONSES
     if (aiContext.currentState === 'awaiting_bad_day_details') {
@@ -1828,7 +1839,7 @@ function generateAIResponse(input) {
     if (has(['anxio', 'stress', 'panic', 'nervous', 'scared', 'worry'])) {
         recordTopic('anxiety');
         return {
-            text: `I can sense the overwhelm. Let's ground you right now with the **5-4-3-2-1 Technique**. Look around: What are 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, and 1 you can taste?`,
+            text: `I can feel the weight of that anxiety in your words, ${userName}. It's such a heavy thing to carry, but you don't have to carry it alone right now. Let's try to bring you back to the present moment together. \n\nCan you try the **5-4-3-2-1 Technique** with me? Just look around and name: \n• 5 things you can see \n• 4 things you can touch \n• 3 things you can hear \n• 2 things you can smell \n• 1 thing you can taste \n\nTake your time with each one. I'm right here.`,
             chips: ["It's working", "Need another way", "Why am I feeling this?"]
         };
     }
@@ -1837,15 +1848,20 @@ function generateAIResponse(input) {
     if (has(['advice', 'help me', 'what should i do', 'tips for'])) {
         recordTopic('advice');
         return {
-            text: `I'd be more than happy to offer some guidance, ${userName}. Often when we feel stuck, a small shift can make a big difference. What area is weighing on you the most right now?`,
+            text: `I'd be more than happy to sit with you and figure this out, ${userName}. Sometimes when everything feels like a knot, just pulling on one small thread can start to loosen things. I've got some thoughts on **Sleep & Rest**, **Managing Stress**, **Communication**, or even just some **Self-Love** exercises. Does one of those sound like a good place to start, or is there something else specific on your mind?`,
             chips: ["Sleep & Rest", "Managing Stress", "Communication", "Self-Love"]
         };
     }
 
     // GREETING
     if (has(['hi', 'hello', 'hey', 'aura'])) {
+        const greetings = [
+            `Hi ${userName}! 💙 It's so good to see you. How has your day been treating you?`,
+            `Hello ${userName}! I've been thinking about you. How's everything going in your world today?`,
+            `Hey there! 🌿 I was just waiting for you to drop by. How are you feeling right now?`
+        ];
         return {
-            text: `Hello ${userName}! 💙 It's so good to see you again. I'm here to support your mental wellness journey. How's your heart feeling in this moment?`,
+            text: greetings[Math.floor(Math.random() * greetings.length)],
             chips: ["I'm okay", "A bit down", "Anxious", "Excited!"]
         };
     }
@@ -1855,13 +1871,8 @@ function generateAIResponse(input) {
         recordTopic('sadness');
         aiContext.lastSentiment = 'sad';
         return {
-            text: `${validate()}\n\n` +
-                `**Here are some clinically-proven techniques that may help:**\n\n` +
-                `🧊 **Cold Water Reset:** Splash cold water on your face or hold ice cubes. This activates your "dive reflex" and calms your nervous system instantly.\n\n` +
-                `📓 **Emotion Journaling:** Write "I feel [emotion] because [reason]." This externalizes the feeling and reduces its intensity.\n\n` +
-                `🚶 **Movement:** Even a 5-minute walk can increase serotonin and dopamine.\n\n` +
-                `Would you like to try one of these, ${userName}?`,
-            chips: ["Tell me more about Cold Water Reset", "I'll try journaling", "Let's just talk"]
+            text: `${validate()}\n\nSometimes when we're in a dark place, the world can feel very heavy. I've found that small, gentle actions can sometimes help shift the energy just a little bit. Would you be open to trying something small with me? Perhaps we could try a **Cold Water Reset** to ground your body, or maybe some **Emotion Journaling** to get those thoughts out of your head? Even just a **5-minute walk** can sometimes let a little light in. Which one feels like it might be manageable right now?`,
+            chips: ["Tell me about Cold Water Reset", "I'll try journaling", "Let's just talk"]
         };
     }
 
@@ -1869,11 +1880,7 @@ function generateAIResponse(input) {
     if (has(['angr', 'mad', 'furious', 'resent', 'hate', 'frustrated'])) {
         recordTopic('anger');
         return {
-            text: `Anger is a valid emotion—it often protects us from deeper pain. Let's work with it, not against it.\n\n` +
-                `**Here are some anger management techniques:**\n\n` +
-                `⏸️ **STOP Method:** Stop, Take a breath, Observe your feelings, Proceed mindfully.\n\n` +
-                `💪 **Physical Release:** Do 20 jumping jacks, squeeze a pillow, or stomp your feet. Anger is physical energy—let it out safely.\n\n` +
-                `Would you like to explore what triggered this anger, ${userName}?`,
+            text: `It's okay to feel angry, ${userName}. Anger is often just a shield for other feelings like hurt or disappointment. I'm here to help you navigate this fire without getting burned. We could try the **STOP Method** to create some space, or if you feel like you need a **Physical Release**, we can talk about safe ways to let that energy out. Does it feel like a slow burn or a quick flash of heat?`,
             chips: ["Tell me about the STOP method", "I need to release it physically", "What's the root of my anger?"]
         };
     }
@@ -1983,10 +1990,10 @@ function generateAIResponse(input) {
 
     // FALLBACK
     const therapeuticFallbacks = [
-        `Tell me more about that, ${userName}. What emotions come up when you think about it?`,
-        `I'm listening, ${userName}. What would feel most helpful for us to focus on right now?`,
-        `That sounds like a lot to handle. How is this situation affecting your peace lately?`,
-        `I'm right here with you. What do you think is at the heart of this feeling?`
+        `I appreciate you sharing that, ${userName}. It helps me understand where you're coming from. Could you tell me a bit more about what that's been like for you?`,
+        `I'm really listening, ${userName}. It sounds like there's a lot on your mind. If you were to pick one thing that's weighing on you the most, what would it be?`,
+        `That sounds like a complex situation, ${userName}. How has it been affecting your energy lately? I'm here if you need to vent or just process it.`,
+        `I hear you. 💙 It's completely okay to not have all the answers right now. What's one small thing I could do to support you in this moment?`
     ];
     const randomFallback = therapeuticFallbacks[Math.floor(Math.random() * therapeuticFallbacks.length)];
 
